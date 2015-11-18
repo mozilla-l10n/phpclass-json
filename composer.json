@@ -1,0 +1,13 @@
+{
+    "name": "mozillal10n/json",
+    "description": "Functions used to manage JSON I/O",
+    "require-dev": {
+        "atoum/atoum" : "~2.0",
+        "fabpot/php-cs-fixer": "~1.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Json": "src/"
+        }
+    }
+}
