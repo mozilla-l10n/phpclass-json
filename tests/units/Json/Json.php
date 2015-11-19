@@ -47,4 +47,31 @@ class Json extends atoum\test
             ->string($json_output)
                 ->isEqualTo($json_content);
     }
+
+    public function testSaveFile()
+    {
+        $obj = new _Json;
+        $json_data = [
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ];
+        $tmp_filename = TEST_FILES . 'tmp.json';
+
+        // Check standard output
+        $obj->saveFile($json_data, $tmp_filename);
+        $file_content = file_get_contents($tmp_filename);
+        $this
+            ->string($file_content)
+                ->isEqualTo('{"key1":"value1","key2":"value2"}');
+
+        // Check prettified output
+        $obj->saveFile($json_data, $tmp_filename, true);
+        $file_content = file_get_contents($tmp_filename);
+        $this
+            ->string($file_content)
+                ->isEqualTo("{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\"\n}");
+
+        // Remove temp file
+        unlink($tmp_filename);
+    }
 }
