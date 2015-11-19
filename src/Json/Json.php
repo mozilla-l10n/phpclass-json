@@ -27,25 +27,23 @@ class Json
     }
 
     /**
-     * Set JSON URI
+     * Return an array from a local or remote JSON file
      *
-     * @param string $uri JSON URI to read
-     *
-     * @return $this Newly created Json object
+     * @return array Decoded JSON content
      */
-    public function setURI($uri)
+    public function fetchContent()
     {
-        $this->jsonURI = $uri;
-
-        return $this;
+        return json_decode(file_get_contents($this->jsonURI), true);
     }
 
     /**
      * Return a JSON/JSONP representation of data
      *
-     * @param  array  Data in JSON field
-     * @param  mixed  Can be a string (JSONP function name), or boolean.
-     *                Default value is false
+     * @param  array   Array of data to encode in JSON format
+     * @param  mixed   Can be a string (JSONP function name), or boolean.
+     *                 Default value is false
+     * @param  boolean If the output needs to be prettified.
+     *                 Default value is false
      *
      * @return json JSON content
      */
@@ -70,12 +68,33 @@ class Json
     }
 
     /**
-     * Return an array from a local or remote JSON file
+     * Save a JSON file on disk
      *
-     * @return array Decoded JSON content
+     * @param  array   Array of data to encode in JSON format
+     * @param  string  Path of the output file
+     * @param  boolean If the output needs to be prettified.
+     *                 Default value is false
+     *
+     * @return boolean Result of the write operation
      */
-    public function fetchContent()
+    public function saveFile(array $data, $filename, $pretty_print = false)
     {
-        return json_decode(file_get_contents($this->jsonURI), true);
+        $json = $pretty_print ? json_encode($data, JSON_PRETTY_PRINT) : json_encode($data);
+
+        return file_put_contents($filename, $json);
+    }
+
+    /**
+     * Set JSON URI
+     *
+     * @param string $uri JSON URI to read
+     *
+     * @return $this Newly created Json object
+     */
+    public function setURI($uri)
+    {
+        $this->jsonURI = $uri;
+
+        return $this;
     }
 }
