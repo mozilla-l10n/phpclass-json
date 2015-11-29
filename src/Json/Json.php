@@ -68,6 +68,20 @@ class Json
     }
 
     /**
+     * Return HTTP code 400 and an error message if an API call is incorrect
+     *
+     * @param string $error Error message
+     *
+     * @return string Output JSON with the error message
+     */
+    public function outputError($error)
+    {
+        http_response_code(400);
+
+        return $this->outputContent(['error' => $error], false, true);
+    }
+
+    /**
      * Save a JSON file on disk
      *
      * @param  array   Array of data to encode in JSON format

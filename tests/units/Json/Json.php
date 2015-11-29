@@ -35,17 +35,43 @@ class Json extends atoum\test
             ],
         ];
 
-        $json_content = file_get_contents(TEST_FILES . 'test_output_pretty.json');
+        # Empty output
+        $expected_result = '[]';
+        $json_output = $obj->outputContent([], false, true);
+        $this
+            ->string($json_output)
+                ->isEqualTo($expected_result);
+
+        # Pretty output
+        $expected_result = file_get_contents(TEST_FILES . 'test_output_pretty.json');
         $json_output = $obj->outputContent($json_data, false, true);
         $this
             ->string($json_output)
-                ->isEqualTo($json_content);
+                ->isEqualTo($expected_result);
 
-        $json_content = file_get_contents(TEST_FILES . 'test_output.json');
+        # Standard output
+        $expected_result = file_get_contents(TEST_FILES . 'test_output.json');
         $json_output = $obj->outputContent($json_data, false, false);
         $this
             ->string($json_output)
-                ->isEqualTo($json_content);
+                ->isEqualTo($expected_result);
+
+        # JSONP Output
+        $expected_result = 'testJS(' . file_get_contents(TEST_FILES . 'test_output.json') . ')';
+        $json_output = $obj->outputContent($json_data, 'testJS', false);
+        $this
+            ->string($json_output)
+                ->isEqualTo($expected_result);
+    }
+
+    public function testOutputError()
+    {
+        $obj = new _Json;
+        $json_output = $obj->outputError('Just an error');
+        $expected_result = "{\n    \"error\": \"Just an error\"\n}";
+        $this
+            ->string($json_output)
+                ->isEqualTo($expected_result);
     }
 
     public function testSaveFile()
