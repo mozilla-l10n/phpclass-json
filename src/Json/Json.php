@@ -60,6 +60,7 @@ class Json
         ob_start();
         header("access-control-allow-origin: *");
         header("Content-type: {$mime}; charset=UTF-8");
+        header("Content-Length: " . strlen($json));
         echo $json;
         $json = ob_get_contents();
         ob_end_clean();
