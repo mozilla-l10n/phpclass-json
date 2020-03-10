@@ -6,8 +6,8 @@
         "friendsofphp/php-cs-fixer": "~2.1"
     },
     "autoload": {
-        "psr-0": {
-            "Json": "src/"
+        "psr-4": {
+            "Json\\": "src/Json/"
         }
     }
 }
