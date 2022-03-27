@@ -1,7 +1,7 @@
 <?php
 namespace tests\units\Json;
 
-use atoum;
+use atoum\atoum;
 use Json\Json as _Json;
 
 require_once __DIR__ . '/../bootstrap.php';
