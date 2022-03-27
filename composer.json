@@ -2,8 +2,8 @@
     "name": "mozillal10n/json",
     "description": "Functions used to manage JSON I/O",
     "require-dev": {
-        "atoum/atoum" : "~3.4",
-        "friendsofphp/php-cs-fixer": "~2.16"
+        "atoum/atoum" : "~4.0",
+        "friendsofphp/php-cs-fixer": "~3.8"
     },
     "autoload": {
         "psr-4": {
